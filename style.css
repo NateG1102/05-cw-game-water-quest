@@ -1,27 +1,4 @@
-/* Charity: water Brand Colors & Fonts
-
-Primary Colors:
-- Yellow:     #FFC907
-- Blue:       #2E9DF7
-
-Secondary Colors:
-- Light Blue: #8BD1CB
-- Green:      #4FCB53
-- Orange:     #FF902A
-- Red:        #F5402C
-- Dark Green: #159A48
-- Pink:       #F16061
-
-Fonts:
-- Proxima Nova
-- Avenir
-
-*/
-
-* {
-  box-sizing: border-box;
-}
-
+/* Charity: water Brand Colors */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -32,112 +9,74 @@ body {
 
 .container {
   max-width: 750px;
-  margin: 50px auto;
+  margin: 0 auto;
   background-color: #fff;
   padding: 40px;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
 h1 {
-  text-align: center;
-  font-size: 30px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: #333;
-}
-
-h1 img {
-  height: 50px;
-  margin-right: 15px;
-  display: block;
+  color: #FFC907;
+  font-size: 2.5em;
+  margin-bottom: 10px;
 }
 
 .game-instructions {
   font-size: 18px;
   margin-bottom: 30px;
-  text-align: center;
+  color: #2E9DF7;
 }
 
 .stats {
   display: flex;
   justify-content: space-around;
-  margin-bottom: 30px;
-  background-color: #f5f5f5;
-  padding: 15px 0;
-  border-radius: 8px;
+  font-size: 18px;
+  margin-bottom: 20px;
 }
 
-.stats p {
-  margin: 0;
-  font-size: 18px;
+#achievements {
+  font-size: 20px;
   font-weight: bold;
-  color: #333;
+  margin-bottom: 20px;
+  color: #159A48;
 }
 
 .game-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 15px;
-  margin: 0 auto;
-  max-width: 500px;
+  margin-bottom: 30px;
 }
 
 .grid-cell {
-  background-color: #e8e8e8;
-  border-radius: 8px;
-  aspect-ratio: 1;
+  width: 100px;
+  height: 100px;
+  border: 1px solid #ddd;
+  background-color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  position: relative;
-  overflow: hidden;
-}
-
-.water-can-wrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 70px;
-  height: 70px;
-  /* Ensure the wrapper is properly centered */
 }
 
 .water-can {
-  width: 100%;
-  height: 100%;
-  background-image: url('img/water-can.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+  width: 60px;
+  height: auto;
   cursor: pointer;
-  border-radius: 50%;
-  animation: popUp 0.5s cubic-bezier(0.17, 0.67, 0.34, 2);
-  transform-origin: center; /* Ensure scaling happens from the center */
+  transition: opacity 0.2s ease;
 }
-
-@keyframes popUp {
-  0% {
-    transform: scale(0.5); /* Start scaling from the center */
-  }
-  100% {
-    transform: scale(1); /* End scaling at full size */
-  }
-}
-
 
 button {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  padding: 12px 24px;
+  padding: 10px 25px;
   font-size: 16px;
-  border-radius: 8px;
+  background-color: #FFC907;
+  border: none;
+  border-radius: 6px;
   cursor: pointer;
-  display: block;
-  margin: 30px auto 0;
-  transition: background-color 0.2s;
+  color: #333;
+}
+
+button:hover {
+  background-color: #e6b800;
 }
