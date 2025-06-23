@@ -1,27 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Water Quest</title>
-  <link href="style.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
     <h1>Water Quest</h1>
-    <p class="game-instructions">Collect 25 cans to complete the game!</p>
-    
+    <p class="game-instructions">Collect water cans before time runs out!</p>
+
+    <label for="difficulty">Select Difficulty:</label>
+    <select id="difficulty">
+      <option value="easy">Easy</option>
+      <option value="normal" selected>Normal</option>
+      <option value="hard">Hard</option>
+    </select>
+
     <div class="stats">
       <p>Cans Collected: <span id="current-cans">0</span></p>
       <p>Time Left: <span id="timer">30</span>s</p>
     </div>
 
     <div id="achievements" class="achievement"></div>
-
     <div class="game-grid"></div>
-    
     <button id="start-game">Start Game</button>
   </div>
+
+  <footer>
+    <p>Inspired by <a href="https://www.charitywater.org" target="_blank">charity: water</a> — <a href="https://www.charitywater.org/donate" target="_blank">Donate here</a></p>
+  </footer>
+
+  <audio id="collect-sound" src="collect-5930.mp3" preload="auto"></audio>
   <script src="script.js"></script>
 </body>
 </html>

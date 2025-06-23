@@ -1,18 +1,21 @@
-const GOAL_CANS = 25;
-const GAME_DURATION = 30;
-
 let currentCans = 0;
-let timeLeft = GAME_DURATION;
+let timeLeft = 30;
 let gameActive = false;
 let spawnInterval;
 let timerInterval;
+let goal = 25;
+
+const milestoneMessages = [
+  { score: 10, message: "You're making a ripple!" },
+  { score: 20, message: "Halfway to changing lives!" }
+];
 
 function createGrid() {
   const grid = document.querySelector('.game-grid');
   grid.innerHTML = '';
   for (let i = 0; i < 9; i++) {
     const cell = document.createElement('div');
-    cell.className = 'grid-cell';
+    cell.classList.add('grid-cell');
     grid.appendChild(cell);
   }
 }
@@ -26,18 +29,23 @@ function spawnWaterCan() {
   const index = Math.floor(Math.random() * cells.length);
   const can = document.createElement('img');
   can.src = 'img/water-can.png';
-  can.alt = 'Water Can';
-  can.className = 'water-can';
+  can.classList.add('water-can');
 
   can.addEventListener('click', () => {
     if (!gameActive) return;
     currentCans++;
     document.getElementById('current-cans').textContent = currentCans;
+    document.getElementById('collect-sound').play();
     can.style.opacity = 0.3;
-    setTimeout(() => can.remove(), 200);
 
-    if (currentCans >= GOAL_CANS) {
-      endGame("Goal reached! Great job.");
+    milestoneMessages.forEach(m => {
+      if (currentCans === m.score) {
+        document.getElementById('achievements').textContent = m.message;
+      }
+    });
+
+    if (currentCans >= goal) {
+      endGame("You did it! Access for all!");
     }
   });
 
@@ -45,22 +53,53 @@ function spawnWaterCan() {
 }
 
 function startGame() {
+  const difficulty = document.getElementById('difficulty').value;
+  let spawnRate = 1000; // default: 1 second
+
+  switch (difficulty) {
+    case 'easy':
+      timeLeft = 40;
+      goal = 20;
+      spawnRate = 1200;
+      break;
+    case 'normal':
+      timeLeft = 30;
+      goal = 25;
+      spawnRate = 900;
+      break;
+    case 'hard':
+      timeLeft = 20;
+      goal = 35;
+      spawnRate = 600;
+      break;
+  }
+
   currentCans = 0;
-  timeLeft = GAME_DURATION;
   gameActive = true;
   document.getElementById('current-cans').textContent = currentCans;
   document.getElementById('timer').textContent = timeLeft;
   document.getElementById('achievements').textContent = '';
 
-  spawnInterval = setInterval(spawnWaterCan, 1000);
+  createGrid();
+
+  // Use dynamic spawn rate
+  spawnInterval = setInterval(spawnWaterCan, spawnRate);
+
   timerInterval = setInterval(() => {
+    if (!gameActive) {
+      clearInterval(timerInterval);
+      return;
+    }
+
     timeLeft--;
     document.getElementById('timer').textContent = timeLeft;
+
     if (timeLeft <= 0) {
       endGame("Time's up! Try again.");
     }
   }, 1000);
 }
+
 
 function endGame(message) {
   gameActive = false;
@@ -69,7 +108,4 @@ function endGame(message) {
   document.getElementById('achievements').textContent = message;
 }
 
-document.getElementById('start-game').addEventListener('click', () => {
-  createGrid();
-  startGame();
-});
+document.getElementById('start-game').addEventListener('click', startGame);
